@@ -1,6 +1,7 @@
 <?php
 
     require_once 'src/Author.php';
+    require_once 'src/Copy.php';
 
     class Book
     {
@@ -75,6 +76,16 @@
         function deleteBook(){
             $GLOBALS['DB']->exec("DELETE FROM books WHERE id = {$this->getId()};");
         }
+
+        // function getCopies(){
+        //     $copies = 0;
+        //     $returned_books = $GLOBALS['DB']->query("SELECT * FROM books;");
+        //     $books = array();
+        //
+        //     foreach($returned_books = $books){
+        //
+        //     }
+        // }
 
         static function deleteAll(){
             $GLOBALS['DB']->exec("DELETE FROM books");

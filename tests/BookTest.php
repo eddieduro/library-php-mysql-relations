@@ -162,6 +162,7 @@
 
         function test_deleteBook(){
             // Arrange
+            // Book
             $title = "Space";
             $genre = "Sci-fi";
             $new_book1 = new Book($title, $genre);
@@ -178,6 +179,35 @@
             $result = Book::getAll();
             $this->assertEquals([$new_book2], $result);
         }
+
+        // function test_getCopies(){
+        //     // Arrange
+        //     $title = "Space";
+        //     $genre = "Sci-fi";
+        //     $new_book1 = new Book($title, $genre);
+        //     $new_book1->save();
+        //
+        //     $new_book2 = new Book($title, $genre);
+        //     $new_book2->save();
+        //
+        //     // Author
+        //     $name = "Bob";
+        //     $test_author = new Author($name);
+        //     $test_author->save();
+        //
+        //     $name2 = "Tom";
+        //     $test_author2 = new Author($name2);
+        //     $test_author2->save();
+        //
+        //     $new_book1->addAuthor($test_author);
+        //     $new_book2->addAuthor($test_author);
+        //
+        //     // Act
+        //     $result = $new_book1->getCopies();
+        //
+        //     // Assert
+        //     $this->assertEquals(2, $result);
+        // }
     }
 
 ?>
