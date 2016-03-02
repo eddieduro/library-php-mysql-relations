@@ -27,6 +27,9 @@
             return $this->genre;
         }
 
+        function setGenre($new_genre){
+            $this->genre = (string) $new_genre;
+        }
 
         function getId(){
             return $this->id;
@@ -63,6 +66,12 @@
             $GLOBALS['DB']->exec("UPDATE books SET title = '{$new_title}' WHERE id = {$this->getId()};");
             $this->setTitle($new_title);
         }
+
+        function updateGenre($new_genre){
+            $GLOBALS['DB']->exec("UPDATE books SET genre = '{$new_genre}' WHERE id = {$this->getId()};");
+            $this->setGenre($new_genre);
+        }
+
         static function deleteAll(){
             $GLOBALS['DB']->exec("DELETE FROM books");
         }
