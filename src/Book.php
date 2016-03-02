@@ -36,7 +36,7 @@
             $GLOBALS['DB']->exec("INSERT INTO books_authors (book_id, author_id) VALUES ({$this->getId()}, {$author->getId()});");
         }
 
-        function getAuthor(){
+        function getAuthors(){
             $authors = $GLOBALS['DB']->query("SELECT author.* FROM books
                 JOIN books_authors ON (books_authors.book_id = books.id)
                 JOIN author ON (author.id = books_authors.author_id)

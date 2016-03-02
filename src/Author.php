@@ -26,16 +26,16 @@
 
         function getBooks(){
             $books = $GLOBALS['DB']->query("SELECT books.* FROM author
-                JOIN books_authors ON (author.id = books_authors.author_id)
-                JOIN books ON (books_authors.book_id = books.id)
+                JOIN books_authors ON (books_authors.book_id = books.id)
+                JOIN books ON (author.id = books_authors.author_id)
                 WHERE author.id = {$this->getId()};");
 
             $returned_books = array();
                 foreach($books as $book){
                     $title = $book['title'];
                     $genre = $book['genre'];
-
-                    $new_book = new Book($title, $genre);
+                    $id = $book['id'];
+                    $new_book = new Book($title, $genre, $id);
                     array_push($returned_books, $new_book);
                 }
             return $returned_books;
