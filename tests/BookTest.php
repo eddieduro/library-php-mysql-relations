@@ -85,6 +85,22 @@
             $this->assertEquals($new_book, $result[0]);
         }
 
+        function test_UpdateTitle(){
+            // Arrange
+            $title = "Harry Potter";
+            $genre = "Sci-fi";
+            $new_book = new Book($title, $genre);
+            $new_book->save();
+
+            // Act
+            $new_title = "Pea soup";
+            $new_book->updateTitle($new_title);
+
+            // Assert
+            $result = $new_book->getTitle();
+            $this->assertEquals("Pea soup", $result);
+        }
+
         function test_addAuthor(){
             // Arrange
             // book

@@ -18,6 +18,11 @@
             return $this->title;
         }
 
+        function setTitle($new_title){
+            $this->title = (string) $new_title;
+        }
+
+
         function getGenre(){
             return $this->genre;
         }
@@ -54,6 +59,10 @@
             return $returned_authors;
         }
 
+        function updateTitle($new_title){
+            $GLOBALS['DB']->exec("UPDATE books SET title = '{$new_title}' WHERE id = {$this->getId()};");
+            $this->setTitle($new_title);
+        }
         static function deleteAll(){
             $GLOBALS['DB']->exec("DELETE FROM books");
         }
