@@ -54,13 +54,14 @@
             // Arrange
             $title1 = "Harry Potter";
             $genre = "Sci-fi";
-            $author_id1 = 1;
-            $new_book1 = new Book($title1, $genre, $author_id1);
+            $new_book1 = new Book($title1, $genre);
             $new_book1->save();
+    
 
             $title2 = "Harry Potter2";
-            $new_book2 = new Book($title2, $genre, $author_id1);
+            $new_book2 = new Book($title2, $genre);
             $new_book2->save();
+    
             // Act
             $result = Book::getAll();
 
@@ -73,9 +74,7 @@
             // Arrange
             $title = "Harry Potter";
             $genre = "Sci-fi";
-            $author_id = 1;
-            $id = null;
-            $new_book = new Book($title, $genre, $author_id, $id);
+            $new_book = new Book($title, $genre);
             $new_book->save();
 
             // Act
@@ -84,6 +83,26 @@
             // Assert
             $result = Book::getAll();
             $this->assertEquals($new_book, $result[0]);
+        }
+
+        function test_addAuthor(){
+            // Arrange
+            // book
+            $title = "Space";
+            $genre = "Sci-fi";
+            $new_book = new Book($title, $genre);
+            $new_book->save();
+
+            //Author
+            $name = "Bob";
+            $test_author = new Author($name);
+            $test_author->save();
+
+            // Act
+            $new_book->addAuthor($test_author);
+            var_dump($new_book->getAuthor());
+            // Assert
+            $this->assertEquals($new_book->getAuthor(), [$test_author]);
         }
     }
 
