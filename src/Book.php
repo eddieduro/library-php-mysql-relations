@@ -72,6 +72,10 @@
             $this->setGenre($new_genre);
         }
 
+        function deleteBook(){
+            $GLOBALS['DB']->exec("DELETE FROM books WHERE id = {$this->getId()};");
+        }
+
         static function deleteAll(){
             $GLOBALS['DB']->exec("DELETE FROM books");
         }

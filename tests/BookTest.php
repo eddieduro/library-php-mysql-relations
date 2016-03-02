@@ -159,6 +159,25 @@
             // Assert
             $this->assertEquals($new_book->getAuthors(), [$test_author, $test_author2]);
         }
+
+        function test_deleteBook(){
+            // Arrange
+            $title = "Space";
+            $genre = "Sci-fi";
+            $new_book1 = new Book($title, $genre);
+            $new_book1->save();
+
+            $title2 = "Space2";
+            $new_book2 = new Book($title2, $genre);
+            $new_book2->save();
+
+            // Act
+            $new_book1->deleteBook();
+
+            // Assert
+            $result = Book::getAll();
+            $this->assertEquals([$new_book2], $result);
+        }
     }
 
 ?>
