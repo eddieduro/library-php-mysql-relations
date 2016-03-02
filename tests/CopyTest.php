@@ -23,9 +23,18 @@
         function test_getBookId(){
 
             // Arrange
-            $book_id = null;
+            // book
+            $title1 = "Space";
+            $genre = "Sci-fi";
+            $id = null;
+            $new_book1 = new Book($title1, $genre);
+            $new_book1->save();
+            $book_id = $new_book1->getId();
+
+
             $id = null;
             $new_copy = new Copy($book_id, $id);
+            $new_copy->save();
 
             // Act
             $result = $new_copy->getBookId();
@@ -33,6 +42,8 @@
             // Assert
             $this->assertEquals($book_id, $result);
         }
+
+    
 
         function test_deleteAll(){
             // Arrange

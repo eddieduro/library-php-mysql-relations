@@ -20,9 +20,20 @@
                 return $this->id;
             }
 
+
             function save(){
                 $GLOBALS['DB']->exec("INSERT INTO copies (books_id) VALUES ('{$this->getBookId()}');");
                 $this->id = $GLOBALS['DB']->lastInsertId();
+            }
+            //
+            function findBooks($searched_title, $searched_author){
+                $returned_books = $GLOBALS['DB']->query("SELECT * FROM books WHERE id = {$this->getBookId()}");
+                $books = array();
+                foreach ($returned_books as $book) {
+                    $title = $book['title'];
+                    $genre = $book['genre'];
+                    $new_book = new Book($title, $genre);
+                }
             }
 
             static function deleteAll(){

@@ -77,15 +77,21 @@
             $GLOBALS['DB']->exec("DELETE FROM books WHERE id = {$this->getId()};");
         }
 
-        // function getCopies(){
-        //     $copies = 0;
-        //     $returned_books = $GLOBALS['DB']->query("SELECT * FROM books;");
-        //     $books = array();
-        //
-        //     foreach($returned_books = $books){
-        //
-        //     }
-        // }
+        function addCopy($copy){
+            $GLOBALS['DB']->exec("INSERT INTO copies (books_id) VALUES ('{$copy->getId()}');");
+        }
+
+        function getCopies(){
+            $returned_copies = $GLOBALS['DB']->query("SELECT * FROM copies WHERE books_id = {$this->getId()}");
+            $copies = array();
+            foreach($returned_copies as $copy){
+                $id = $copy['id'];
+                $book_id = $copy['books_id'];
+                $new_copy = new Copy($book_id, $id);
+                array_push($copies, $new_copy);
+            }
+            return $copies;
+        }
 
         static function deleteAll(){
             $GLOBALS['DB']->exec("DELETE FROM books");

@@ -180,34 +180,66 @@
             $this->assertEquals([$new_book2], $result);
         }
 
-        // function test_getCopies(){
-        //     // Arrange
-        //     $title = "Space";
-        //     $genre = "Sci-fi";
-        //     $new_book1 = new Book($title, $genre);
-        //     $new_book1->save();
-        //
-        //     $new_book2 = new Book($title, $genre);
-        //     $new_book2->save();
-        //
-        //     // Author
-        //     $name = "Bob";
-        //     $test_author = new Author($name);
-        //     $test_author->save();
-        //
-        //     $name2 = "Tom";
-        //     $test_author2 = new Author($name2);
-        //     $test_author2->save();
-        //
-        //     $new_book1->addAuthor($test_author);
-        //     $new_book2->addAuthor($test_author);
-        //
-        //     // Act
-        //     $result = $new_book1->getCopies();
-        //
-        //     // Assert
-        //     $this->assertEquals(2, $result);
-        // }
+        function test_addCopy(){
+            // Arrange
+            // book
+            $title = "Space";
+            $genre = "Sci-fi";
+            $new_book = new Book($title, $genre);
+            $new_book->save();
+            $book_id = $new_book->getId();
+
+            //Author
+            $name = "Bob";
+            $test_author = new Author($name);
+            $test_author->save();
+            $new_book->addAuthor($test_author);
+
+            // Act
+            $test_copy = new Copy($book_id);
+            $test_copy->save();
+            $new_book->addCopy($test_copy);
+            // Assert
+            $this->assertEquals([$test_copy], $new_book->getCopies());
+        }
+
+        function test_getCopies(){
+            // Arrange
+            $title = "Space";
+            $genre = "Sci-fi";
+            $new_book1 = new Book($title, $genre);
+            $new_book1->save();
+            $book_id1 = $new_book1->getId();
+
+            $new_book2 = new Book($title, $genre);
+            $new_book2->save();
+            $book_id2 = $new_book2->getId();
+
+            // Author
+            $name = "Bob";
+            $test_author = new Author($name);
+            $test_author->save();
+
+            $name2 = "Tom";
+            $test_author2 = new Author($name2);
+            $test_author2->save();
+
+            $new_book1->addAuthor($test_author);
+            $new_book2->addAuthor($test_author);
+
+            // Act
+            $new_copy1 = new Copy($book_id1);
+            $new_copy1->save();
+
+            $new_copy2 = new Copy($book_id1);
+            $new_copy2->save();
+
+            $new_copy3 = new Copy($book_id2);
+            $new_copy3->save();
+
+            // Assert
+            $this->assertEquals($new_book1->getCopies(), [$new_copy1, $new_copy2]);
+        }
     }
 
 ?>
