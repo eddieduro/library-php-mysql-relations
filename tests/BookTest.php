@@ -196,7 +196,9 @@
             $new_book->addAuthor($test_author);
 
             // Act
-            $test_copy = new Copy($book_id);
+            $id = null;
+            $due_date = "2016-03-03";
+            $test_copy = new Copy($book_id, $id, $due_date);
             $test_copy->save();
             $new_book->addCopy($test_copy);
             // Assert
@@ -228,13 +230,15 @@
             $new_book2->addAuthor($test_author);
 
             // Act
-            $new_copy1 = new Copy($book_id1);
+            $id = null;
+            $due_date = "2016-03-03";
+            $new_copy1 = new Copy($book_id1, $id, $due_date);
             $new_copy1->save();
 
-            $new_copy2 = new Copy($book_id1);
+            $new_copy2 = new Copy($book_id1,  $id, $due_date);
             $new_copy2->save();
 
-            $new_copy3 = new Copy($book_id2);
+            $new_copy3 = new Copy($book_id2,  $id, $due_date);
             $new_copy3->save();
 
             // Assert

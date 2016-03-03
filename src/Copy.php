@@ -6,10 +6,12 @@
         {
             private $id;
             private $book_id;
+            private $due_date;
 
-            function __construct($book_id, $id = null){
+            function __construct($book_id, $id = null, $due_date){
                 $this->book_id = $book_id;
                 $this->id = $id;
+                $this->due_date = $due_date;
             }
 
             function getBookId(){
@@ -20,9 +22,12 @@
                 return $this->id;
             }
 
+            function getDueDate(){
+                return $this->due_date;
+            }
 
             function save(){
-                $GLOBALS['DB']->exec("INSERT INTO copies (books_id) VALUES ('{$this->getBookId()}');");
+                $GLOBALS['DB']->exec("INSERT INTO copies (books_id, due_date) VALUES ('{$this->getBookId()}', '{$this->getDueDate()}');");
                 $this->id = $GLOBALS['DB']->lastInsertId();
             }
 
@@ -52,6 +57,10 @@
                 return $found_authors;
             }
 
+            // function addDueDate(){
+            //     $GLOBALS['DB']->exec("")
+            // }
+
             static function deleteAll(){
                 $GLOBALS['DB']->exec("DELETE FROM copies");
             }
@@ -62,11 +71,12 @@
                 foreach($returned_copies as $copy){
                     $book_id = $copy['books_id'];
                     $id = $copy['id'];
-                    $new_copy = new Copy($book_id, $id);
+                    $due_date = $copy['due_date'];
+                    $new_copy = new Copy($book_id, $id, $due_date);
                     array_push($copies, $new_copy);
                 }
                 return $copies;
-
             }
+
         }
     ?>
