@@ -1,0 +1,10 @@
+$color_border: #000;
+$color_headline: tomato;
+
+.container {
+  border: 1px solid $color_border;
+  h2 {
+    color: $color_headline;
+    text-align: center;
+  }
+}

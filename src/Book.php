@@ -1,7 +1,5 @@
 <?php
 
-    require_once 'src/Author.php';
-    require_once 'src/Copy.php';
 
     class Book
     {
