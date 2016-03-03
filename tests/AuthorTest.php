@@ -21,14 +21,14 @@
         function test_getName(){
 
             // Arrange
-            $name = "Bob";
+            $name = "Chris";
             $new_author = new Author($name);
 
             // Act
             $result = $new_author->getName();
 
             // Assert
-            $this->assertEquals("Bob", $result);
+            $this->assertEquals("Chris", $result);
         }
 
         function test_deleteAll(){

@@ -7,11 +7,13 @@
             private $id;
             private $book_id;
             private $due_date;
+            private $available;
 
-            function __construct($book_id, $id = null, $due_date){
+            function __construct($book_id, $id = null, $due_date, $available = null){
                 $this->book_id = $book_id;
                 $this->id = $id;
                 $this->due_date = $due_date;
+                $this->available = $available;
             }
 
             function getBookId(){
@@ -26,8 +28,20 @@
                 return $this->due_date;
             }
 
+            function getAvailable(){
+                return $this->available;
+            }
+
+            function setAvailable($curr_available){
+                $this->available = $curr_available;
+            }
+
+            function setDueDate($new_due_date){
+                $this->due_date = $new_due_date;
+            }
+
             function save(){
-                $GLOBALS['DB']->exec("INSERT INTO copies (books_id, due_date) VALUES ('{$this->getBookId()}', '{$this->getDueDate()}');");
+                $GLOBALS['DB']->exec("INSERT INTO copies (books_id, due_date, available) VALUES ({$this->getBookId()}, '{$this->getDueDate()}', {$this->getAvailable()});");
                 $this->id = $GLOBALS['DB']->lastInsertId();
             }
 
@@ -57,9 +71,17 @@
                 return $found_authors;
             }
 
-            // function addDueDate(){
-            //     $GLOBALS['DB']->exec("")
-            // }
+            function checkOut($new_due_date){
+                $GLOBALS['DB']->exec("UPDATE copies SET available = 0, due_date = '{$new_due_date}' WHERE id = {$this->getId()};");
+                $this->setAvailable(0);
+                $this->setDueDate($new_due_date);
+            }
+
+            function checkIn(){
+                $GLOBALS['DB']->exec("UPDATE copies SET available = 1, due_date = '1970-01-01' WHERE id = {$this->getId()};");
+                $this->setAvailable(1);
+                $this->setDueDate('1970-01-01');
+            }
 
             static function deleteAll(){
                 $GLOBALS['DB']->exec("DELETE FROM copies");
@@ -72,7 +94,8 @@
                     $book_id = $copy['books_id'];
                     $id = $copy['id'];
                     $due_date = $copy['due_date'];
-                    $new_copy = new Copy($book_id, $id, $due_date);
+                    $available = $copy['available'];
+                    $new_copy = new Copy($book_id, $id, $due_date, $available);
                     array_push($copies, $new_copy);
                 }
                 return $copies;

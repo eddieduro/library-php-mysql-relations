@@ -33,7 +33,8 @@
 
             $due_date = "2016-03-03";
             $id = null;
-            $new_copy = new Copy($book_id, $id, $due_date);
+            $available = 1;
+            $new_copy = new Copy($book_id, $id, $due_date, $available);
             $new_copy->save();
 
             // Act
@@ -92,9 +93,10 @@
             $new_book2->addAuthor($test_author);
 
             $due_date = "2016-03-03";
-            $new_copy1 = new Copy($book_id1, $id, $due_date);
+            $available = 1;
+            $new_copy1 = new Copy($book_id1, $id, $due_date, $available);
             $new_copy1->save();
-            $new_copy2 = new Copy($book_id2, $id, $due_date);
+            $new_copy2 = new Copy($book_id2, $id, $due_date, $available);
             $new_copy2->save();
 
             // Assert
@@ -121,7 +123,8 @@
             $new_book1->addAuthor($test_author);
 
             $due_date = "2016-03-03";
-            $new_copy1 = new Copy($book_id1, $id, $due_date);
+            $available = 1;
+            $new_copy1 = new Copy($book_id1, $id, $due_date, $available);
             $new_copy1->save();
 
             // Assert
@@ -148,7 +151,8 @@
 
             // Act
             $due_date = "2016-03-03";
-            $new_copy1 = new Copy($book_id1, $id, $due_date);
+            $available = 1;
+            $new_copy1 = new Copy($book_id1, $id, $due_date, $available);
             $new_copy1->save();
 
             $searched_title = "Space";
@@ -191,7 +195,8 @@
             $new_book2->addAuthor($test_author2);
             // Act
             $due_date = "2016-03-03";
-            $new_copy1 = new Copy($book_id1, $id, $due_date);
+            $available = 1;
+            $new_copy1 = new Copy($book_id1, $id, $due_date, $available);
             $new_copy1->save();
 
 
@@ -200,6 +205,29 @@
             // Assert
             $result = $new_copy1->findAuthors($searched_author);
             $this->assertEquals($test_author2, $result);
+        }
+
+        function test_setDueDate(){
+            //arrange
+            // book
+            $title = "Space";
+            $genre = "Sci-fi";
+            $id = null;
+            $new_book = new Book($title, $genre);
+            $new_book->save();
+            $book_id = $new_book->getId();
+
+
+            $due_date = "2016-03-03";
+            $available = 1;
+            $new_copy = new Copy($book_id, $id, $due_date, $available);
+            $new_copy->save();
+            $new_due_date = '2020-12-20';
+            //act
+            $new_copy->setDueDate($new_due_date);
+            $results = $new_copy->getDueDate();
+            //assert
+            $this->assertEquals('2020-12-20', $results);
         }
 
         function test_getDueDate(){
@@ -214,11 +242,60 @@
 
 
             $due_date = "2016-03-03";
-            $new_copy = new Copy($book_id, $id, $due_date);
+            $available = 1;
+            $new_copy = new Copy($book_id, $id, $due_date, $available);
+            $new_copy->save();
             //act
             $results = $new_copy->getDueDate();
             //assert
             $this->assertEquals("2016-03-03", $results);
+        }
+
+        function test_checkOut(){
+            // book
+            $title = "Space";
+            $genre = "Sci-fi";
+            $id = null;
+            $new_book = new Book($title, $genre);
+            $new_book->save();
+            $book_id = $new_book->getId();
+
+
+            $due_date = '1970-01-01';
+            $available = 1;
+            $new_copy = new Copy($book_id, $id, $due_date, $available);
+            $new_copy->save();
+            $new_due_date = "2016-04-03";
+
+            //act
+            $new_copy->checkOut($new_due_date);
+            $result = Copy::getAll();
+
+            //assert
+            $this->assertEquals([$new_copy], $result);
+        }
+
+        function test_checkIn(){
+            // book
+            $title = "Space";
+            $genre = "Sci-fi";
+            $id = null;
+            $new_book = new Book($title, $genre);
+            $new_book->save();
+            $book_id = $new_book->getId();
+
+
+            $due_date = "1970-01-01";
+            $available = 0;
+            $new_copy = new Copy($book_id, $id, $due_date, $available);
+            $new_copy->save();
+
+            //act
+            $new_copy->checkIn();
+            $result = Copy::getAll();
+
+            //assert
+            $this->assertEquals([$new_copy], $result);
         }
     }
 

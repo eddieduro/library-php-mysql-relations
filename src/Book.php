@@ -88,7 +88,8 @@
                 $id = $copy['id'];
                 $book_id = $copy['books_id'];
                 $due_date = $copy['due_date'];
-                $new_copy = new Copy($book_id, $id, $due_date);
+                $available = $copy['available'];
+                $new_copy = new Copy($book_id, $id, $due_date, $available);
                 array_push($copies, $new_copy);
             }
             return $copies;
