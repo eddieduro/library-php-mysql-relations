@@ -43,7 +43,7 @@
             $this->assertEquals($book_id, $result);
         }
 
-    
+
 
         function test_deleteAll(){
             // Arrange
@@ -127,6 +127,75 @@
             $this->assertEquals($new_copy1, $result[0]);
         }
 
+        function test_findBook(){
+            // book
+            $title1 = "Space";
+            $genre = "Sci-fi";
+            $id = null;
+            $new_book1 = new Book($title1, $genre);
+            $new_book1->save();
+            $book_id1 = $new_book1->getId();
+
+
+            //Author
+            $name = "Bob";
+            $test_author = new Author($name);
+            $test_author->save();
+
+            $new_book1->addAuthor($test_author);
+            // Act
+            $new_copy1 = new Copy($book_id1, $id);
+            $new_copy1->save();
+
+            $searched_title = "Space";
+
+
+            // Assert
+            $result = $new_copy1->findBooks($searched_title);
+            $this->assertEquals($new_book1, $result);
+        }
+
+        function test_findAuthor(){
+            // book
+            $title1 = "Space";
+            $genre = "Sci-fi";
+            $id = null;
+            $new_book1 = new Book($title1, $genre);
+            $new_book1->save();
+            $book_id1 = $new_book1->getId();
+
+            // book
+            $title2 = "Katz";
+            $genre = "Family";
+            $id = null;
+            $new_book2 = new Book($title2, $genre);
+            $new_book2->save();
+            $book_id2 = $new_book2->getId();
+
+
+            //Author
+            $name1 = "Bob";
+            $test_author1 = new Author($name1);
+            $test_author1->save();
+
+            $new_book1->addAuthor($test_author1);
+
+            $name2 = "Tom";
+            $test_author2 = new Author($name2);
+            $test_author2->save();
+
+            $new_book2->addAuthor($test_author2);
+            // Act
+            $new_copy1 = new Copy($book_id1, $id);
+            $new_copy1->save();
+
+
+            $searched_author = "Tom";
+
+            // Assert
+            $result = $new_copy1->findAuthors($searched_author);
+            $this->assertEquals($test_author2, $result);
+        }
     }
 
 ?>

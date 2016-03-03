@@ -25,15 +25,31 @@
                 $GLOBALS['DB']->exec("INSERT INTO copies (books_id) VALUES ('{$this->getBookId()}');");
                 $this->id = $GLOBALS['DB']->lastInsertId();
             }
-            //
-            function findBooks($searched_title, $searched_author){
-                $returned_books = $GLOBALS['DB']->query("SELECT * FROM books WHERE id = {$this->getBookId()}");
-                $books = array();
-                foreach ($returned_books as $book) {
-                    $title = $book['title'];
-                    $genre = $book['genre'];
-                    $new_book = new Book($title, $genre);
+
+            function findBooks($searched_title){
+                $found_books = null;
+                $books = Book::getAll();
+
+                foreach($books as $book){
+                    $books_title = $book->getTitle();
+                    if($books_title == $searched_title){
+                        $found_books = $book;
+                    }
                 }
+                return $found_books;
+            }
+
+            function findAuthors($searched_author){
+                $found_authors = null;
+                $authors = Author::getAll();
+
+                foreach($authors as $author){
+                    $authors_name = $author->getName();
+                    if($authors_name == $searched_author){
+                        $found_authors = $author;
+                    }
+                }
+                return $found_authors;
             }
 
             static function deleteAll(){
