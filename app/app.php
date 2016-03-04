@@ -40,6 +40,7 @@
     });
 
     $app->post("/add_book", function () use ($app) {
+        $stock = 0;
         $title = ucwords($_POST['title']);
         $genre = ucwords($_POST['genre']);
         $new_book = new Book($title, $genre);
@@ -53,7 +54,12 @@
         $new_book->addCopy($new_copy);
         $current_copies = $new_book->getCopies();
 
+        if($book_id == $new_copy->getBookId()){
+            $stock = $stock + 1;
+        }
+        var_dump($stock);
         return $app['twig']->render("librarian.html.twig", array(
+            'stock' => $stock,
             'books' => Book::getAll(),
             'copies' => $current_copies
         ));
