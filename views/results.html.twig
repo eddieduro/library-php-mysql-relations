@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    {% include 'header.html' %}
+    <body>
+    <div class="container">
+        <h2>PDX Public Library</h2>
+    {% include 'navbar.html' %}
+
+    <section class='results'>
+
+            {%if books is empty %}
+            {{ error }}
+            {% endif %}
+            {% set book_stock = 0 %}
+
+
+            <h3> We have
+            {% for book in books %}
+                {% set book_stock = book_stock + 1 %}
+                {% set title = book.getTitle %}
+                {{ book_stock }}
+                <span><a href="/book/{{ book.getId }}">{{ title }}</a></span> in stock</h3>
+                <!-- <h4> {{ book.getTitle }} </h4> -->
+            {% endfor %} :
+
+            {% for author in authors %}
+            <h5> {{ author.getName }} </h5>
+            {% endfor %}
+
+    </section>
+    </div>
+
+    {% include 'footer.html' %}
+    </body>
+</html>

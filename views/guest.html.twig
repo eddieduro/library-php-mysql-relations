@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    {% include 'header.html' %}
+    <body>
+    <div class="container">
+        <h2>PDX Public Library</h2>
+
+    {% include 'navbar.html' %}
+
+        <section class="content">
+            <div class="row">
+                <div class="col s4">
+                    <p>Chuck tenderloin tongue brisket short ribs landjaeger corned beef boudin tail short loin pork shankle kevin pork belly. Alcatra bacon sirloin, ham fatback pig hamburger chicken corned beef filet mignon.</p>
+                </div>
+                <div class="col s4">
+                    <p>hamburger turducken kevin meatloaf t-bone strip steak capicola beef ribs. Porchetta pastrami picanha cow shoulder, shank frankfurter.</p>
+                </div>
+                <div class="col s4">
+                    <p>T-bone picanha capicola, venison jerky hamburger bresaola andouille tail alcatra corned beef drumstick bacon pork.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h4>Top 5 selections: </h4>
+            <ul>
+
+            {% for book in books|slice(0,5) %}
+                <li><a href="/guest/book/{{ book.getId }}">{{book.getTitle}}</a></li>
+            {% endfor %}
+            </ul>
+        </section>
+    </div>
+
+    {% include 'footer.html' %}
+    </body>
+</html>

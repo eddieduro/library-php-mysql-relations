@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    {% include 'header.html' %}
+    <body>
+        <div class="container">
+            
+            <h2>{{ book.getTitle }}</h2>
+            <h4>{{ book.getGenre }}</h4>
+            {% for author in authors %}
+            <h4>{{ author.getName }}</h4>
+            {% endfor %}
+
+            <form  class="col s8" action="/book/{{ book.getId }}/add_author" method="post">
+                <label for="author">Author Name:</label>
+                <input name="author" id="author">
+                <button type="submit" class="btn">Add!</button>
+            </form>
+        </div>
+
+    {% include 'footer.html' %}
+    <h5 class="center-align"><a href='/'>Home</a></h5>
+    </body>
+</html>

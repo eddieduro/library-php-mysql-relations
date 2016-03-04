@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    {% include 'header.html' %}
+    <body>
+        <div class="container">
+            <h2>PDX Public Library</h2>
+        {% include 'navbar.html' %}
+        {% for copy in current_copies  %}
+        {{ copy.getId }}
+        {% endfor %}
+            <h3>Title: {{ book.getTitle }}</h3>
+            <h4>Topic: {{ book.getGenre }}</h4>
+            {% for author in authors %}
+            <h5>Author: {{ author.getName }}</h5>
+            <form action="/book/{{ book.getId }}/delete/{{ author.getId }}" method="post">
+                <input name="_method" type="hidden" value="delete">
+                <button type="submit" class="btn">Delete</button>
+            </form>
+            {% endfor %}
+            <a href="/book/{{ book.getId }}/add_author">Add author</a>
+        </div>
+
+    {% include 'footer.html' %}
+    </body>
+</html>

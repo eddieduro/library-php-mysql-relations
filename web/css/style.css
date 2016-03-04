@@ -1,7 +1,45 @@
-.container {
-  border: 1px solid #000;
-}
 .container h2 {
-  color: tomato;
+  color: #38a380;
   text-align: center;
+}
+.search {
+  position: absolute;
+  margin-top: -63px;
+  width: 300px;
+}
+.search #search {
+  position: absolute;
+}
+.search .card {
+  height: 40px;
+}
+.search .material-icons {
+  padding-top: 8px;
+}
+.search input:not([type]) {
+  border-bottom: 0;
+}
+.search input:not([type]):focus:not([readonly]) {
+  border-bottom: 0;
+  box-shadow: 0 0 0 0;
+}
+.btn {
+  background-color: #09d391;
+}
+nav {
+  background-color: #72b19c;
+}
+a {
+  color: #38a380;
+}
+body {
+  background-color: grey;
+}
+body div {
+  background-color: white;
+  width: 100%;
+}
+.content .row {
+  margin-left: 0px;
+  margin-right: 0px;
 }

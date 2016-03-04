@@ -1,10 +1,60 @@
-$color_border: #000;
-$color_headline: tomato;
+$color_headline: #38a380;
+$links_color: #38a380;
+$accent_color: #09d391;
+$dark_color_theme: #72b19c;
+$background: white;
 
 .container {
-  border: 1px solid $color_border;
   h2 {
     color: $color_headline;
     text-align: center;
   }
+}
+.search{
+    position: absolute;
+    margin-top: -63px;
+    width: 300px;
+    #search {
+        position: absolute;
+    }
+    .card {
+        height: 40px;
+    }
+    .material-icons{
+        padding-top: 8px;
+    }
+    input:not([type]){
+        border-bottom: 0;
+    }
+    input:not([type]):focus:not([readonly]){
+        border-bottom: 0;
+        box-shadow: 0 0 0 0;
+    }
+}
+
+.btn{
+    background-color: $accent_color;
+}
+
+nav{
+    background-color: $dark_color_theme;
+}
+
+a {
+    color: $links_color;
+}
+
+body {
+    background-color: grey;
+    div{
+        background-color: $background;
+        width: 100%;
+    }
+}
+
+.content{
+    .row{
+        margin-left: 0px ;
+        margin-right: 0px ;
+    }
 }
